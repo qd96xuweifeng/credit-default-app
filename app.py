@@ -4,7 +4,7 @@ import joblib
 import matplotlib.pyplot as plt
 
 # Load model
-model = joblib.load("reg_model.pkl")
+model = joblib.load("xgb_model.pkl")
 
 # App title
 st.title("Credit Default Risk Predictor")
