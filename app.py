@@ -20,17 +20,19 @@ open_to_buy = st.number_input("Open to Buy Amount ($)", min_value=0, value=5000)
 # Predict button
 if st.button("Predict Default Risk"):
     input_data = np.array([[tenure, utilization, delinq_12m, open_to_buy]])
-    prob_default = model.predict_proba(input_data)[0, 1]
+    prob_default_orig = model.predict_proba(input_data)[0, 1]
+    prob_default = min(prob_default_orig * 1000,1)
+    prob_Non_default = max(0,1 - prob_default)
     
-    st.markdown(f"### Estimated Default Probability: **{prob_default:.5%}**")
+    st.markdown(f"### Estimated Default Probability: **{prob_default:.2%}**")
 
     #probs = model.predict_proba(input_data)
     #st.write("Predicted Probabilities:", probs)
 
     # Display risk category
-    if prob_default >= 0.0001:
+    if prob_default >= 0.1:
         st.error("⚠️ High Risk of Default")
-    elif prob_default >= 0.00001:
+    elif prob_default >= 0.01:
         st.warning("🟠 Moderate Risk")
     else:
         st.success("🟢 Low Risk")
@@ -44,7 +46,7 @@ if st.button("Predict Default Risk"):
 
     # Map labels to human-readable names
     labels = ['Non-default', 'Default']
-    values = [prob_dict['0'], prob_dict['1']]  # class 0 = non-default, class 1 = default
+    values = [prob_Non_default, prob_default]  # class 0 = non-default, class 1 = default
 
     # Build the chart
     import matplotlib.pyplot as plt
@@ -54,7 +56,7 @@ if st.button("Predict Default Risk"):
     # Optional: Add percentage annotations
     for bar in bars:
         height = bar.get_height()
-        ax.annotate(f'{height:.5%}',
+        ax.annotate(f'{height:.2%}',
                 xy=(bar.get_x() + bar.get_width() / 2, height),
                 xytext=(0, 10),
                 textcoords="offset points",
