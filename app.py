@@ -37,7 +37,7 @@ if st.button("Predict Default Risk"):
 
     # Plot
     fig, ax = plt.subplots()
-    ax.bar(["No Default", "Default"], model.predict_proba(input_data)[0])
+    ax.bar(["No Default", "Default"], model.predict_proba(input_data)[0,1])
     ax.set_ylabel("Probability")
     ax.set_ylim(0,1)
     st.pyplot(fig)
