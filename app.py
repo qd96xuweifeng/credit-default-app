@@ -22,7 +22,7 @@ if st.button("Predict Default Risk"):
     input_data = np.array([[tenure, utilization, delinq_12m, open_to_buy]])
     prob_default = model.predict_proba(input_data)[0, 1]
     
-    st.markdown(f"### Estimated Default Probability: **{prob_default:.2%}**")
+    st.markdown(f"### Estimated Default Probability: **{prob_default:.5%}**")
 
     #probs = model.predict_proba(input_data)
     #st.write("Predicted Probabilities:", probs)
@@ -54,7 +54,7 @@ if st.button("Predict Default Risk"):
     # Optional: Add percentage annotations
     for bar in bars:
         height = bar.get_height()
-        ax.annotate(f'{height:.2%}',
+        ax.annotate(f'{height:.5%}',
                 xy=(bar.get_x() + bar.get_width() / 2, height),
                 xytext=(0, 10),
                 textcoords="offset points",
