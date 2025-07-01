@@ -56,11 +56,11 @@ if st.button("Predict Default Risk"):
         height = bar.get_height()
         ax.annotate(f'{height:.2%}',
                 xy=(bar.get_x() + bar.get_width() / 2, height),
-                xytext=(0, 5),
+                xytext=(0, 10),
                 textcoords="offset points",
                 ha='center', va='bottom')
 
     ax.set_ylim(0, 1)
     ax.set_ylabel('Probability')
-    ax.set_title('Estimated Risk Breakdown')
+    ax.set_title('Estimated Risk Breakdown', pad=20)
     st.pyplot(fig)
