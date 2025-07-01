@@ -21,7 +21,7 @@ open_to_buy = st.number_input("Open to Buy Amount ($)", min_value=0, value=5000)
 if st.button("Predict Default Risk"):
     input_data = np.array([[tenure, utilization, delinq_12m, open_to_buy]])
     prob_default_orig = model.predict_proba(input_data)[0, 1]
-    prob_default = min(prob_default_orig * 100,1)
+    prob_default = min(prob_default_orig * 1,1)
     prob_Non_default = max(0,1 - prob_default)
     
     st.markdown(f"### Estimated Default Probability: **{prob_default:.2%}**")
