@@ -24,8 +24,8 @@ if st.button("Predict Default Risk"):
     
     st.markdown(f"### Estimated Default Probability: **{prob_default:.2%}**")
 
-    probs = model.predict_proba(input_data)
-    st.write("Predicted Probabilities:", probs)
+    #probs = model.predict_proba(input_data)
+    #st.write("Predicted Probabilities:", probs)
 
     # Display risk category
     if prob_default >= 0.0001:
