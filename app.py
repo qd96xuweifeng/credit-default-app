@@ -35,9 +35,32 @@ if st.button("Predict Default Risk"):
     else:
         st.success("🟢 Low Risk")
 
-    # Plot
+    # Get class probabilities and class labels
+    probs = model.predict_proba(input_data)[0]
+    classes = model.classes_
+
+    # Create a dict of label: prob, explicitly
+    prob_dict = {str(cls): prob for cls, prob in zip(classes, probs)}
+
+    # Map labels to human-readable names
+    labels = ['Non-default', 'Default']
+    values = [prob_dict['0'], prob_dict['1']]  # class 0 = non-default, class 1 = default
+
+    # Build the chart
+    import matplotlib.pyplot as plt
     fig, ax = plt.subplots()
-    ax.bar(["No Default", "Default"], model.predict_proba(input_data)[0,1])
-    ax.set_ylabel("Probability")
-    ax.set_ylim(0,1)
+    bars = ax.bar(labels, values, color=["green", "red"])
+
+    # Optional: Add percentage annotations
+    for bar in bars:
+        height = bar.get_height()
+        ax.annotate(f'{height:.2%}',
+                xy=(bar.get_x() + bar.get_width() / 2, height),
+                xytext=(0, 5),
+                textcoords="offset points",
+                ha='center', va='bottom')
+
+    ax.set_ylim(0, 1)
+    ax.set_ylabel('Probability')
+    ax.set_title('Estimated Risk Breakdown')
     st.pyplot(fig)
