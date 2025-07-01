@@ -28,16 +28,16 @@ if st.button("Predict Default Risk"):
     st.write("Predicted Probabilities:", probs)
 
     # Display risk category
-    if prob_default >= 0.5:
+    if prob_default >= 0.0001:
         st.error("⚠️ High Risk of Default")
-    elif prob_default >= 0.2:
+    elif prob_default >= 0.00001:
         st.warning("🟠 Moderate Risk")
     else:
         st.success("🟢 Low Risk")
 
     # Plot
     fig, ax = plt.subplots()
-    ax.bar(["Default", "No Default"], model.predict_proba(input_data)[0])
+    ax.bar(["Default", "No Default"], model.predict_proba(input_data)[1])
     ax.set_ylabel("Probability")
     ax.set_ylim(0, 1)
     st.pyplot(fig)
