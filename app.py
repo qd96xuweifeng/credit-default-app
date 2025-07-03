@@ -15,7 +15,7 @@ st.markdown("Enter the features below to estimate the probability of default.")
 tenure = st.number_input("Tenure (months)", min_value=0, max_value=240, value=24)
 utilization = st.slider("Utilization Ratio", 0.0, 1.0, 0.3)
 delinq_12m = st.number_input("Delinquency Count (last 12 months)", min_value=0, max_value=12, value=0)
-open_to_buy = st.number_input("Open to Buy Amount ($)", min_value=0, value=5000)
+#open_to_buy = st.number_input("Open to Buy Amount ($)", min_value=0, value=5000)
 
 # Predict button
 if st.button("Predict Default Risk"):
